@@ -1,7 +1,5 @@
 examples/*
-videos/*.mp4
-
- *.mp4 
+ 
 *.ipynb 
 __pycache__
 
