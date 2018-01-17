@@ -1,28 +1,9 @@
-import sys
-import cv2
+from moviepy.editor import VideoFileClip
+from main.lane import Lane
 
-
-
-
-
-print(sys.argv)
-
-
-if __name__ = "__main__":
-	
-	if len(sys.argv) != 2:
-		print("Incorrect number of input arguments: Pass file name as an arguement.")
-		sys.exit(1)
-
-	
-
-
-	image = cv2.imread(sys.argv[1])
-
-
-
-def process_image(img):
-	pass
-
-def process_video(img):
-	pass
+lane = Lane()
+file = './videos/project_video.mp4'
+filename = './videos/test_video.mp4'
+clips = VideoFileClip(file)
+video = clips.fl_image(lane.process)
+video.write_videofile(filename, audio=False)

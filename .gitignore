@@ -1,3 +1,4 @@
-examples/
-*.mp4
-*.ipynb
+examples/*
+ *.mp4 
+*.ipynb 
+__pycache__
