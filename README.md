@@ -103,10 +103,10 @@ Now that we know the rough position of the lines in the image we begin classifyi
 </p>
 
 ### 2.3 Determine Lane Curvature
-The lane lines are calculated in the pixel space but we need to convert the dimensions to real space to have any significant value. Lanes are approximately 3.7 meters wide and 30.0 meters long on a straight section of road, so applying this scale to the image we can set the approximate conversion to be roughly 24 pixels/meter in the vertical and 346 pixels/meter in the horizontal. With this conversion we can convert the radius of curvature from pixel space to real space
+The lane lines are calculated in the pixel space but we need to convert the dimensions to real space to have any significant value. Lanes are approximately 3.7 meters wide and 30.0 meters long on a straight section of road, so applying this scale to the image we can set the approximate conversion to be roughly 24 pixels/meter in the vertical and 346 pixels/meter in the horizontal. With this conversion we can convert the radius of curvature from pixel space to real space.
 
 ### 2.4 Unwarp Image & Overlay Lane
-...
+To augment the lane on image we use the polyfill function to fill in the space between the left and right lane polynomials (left) and then apply a perspective transform to unwarp the image (middle) back to the original frame of reference. The lane image is then overlaid onto the original image using a semi-transparent mask (right) to give the impression of a green shade to the predicted lane region.
 
 <p align="center">
  <img src="./images/lane_find.png" width=250>
@@ -116,7 +116,7 @@ The lane lines are calculated in the pixel space but we need to convert the dime
 
 
 ### 2.5 Annotate Image
-...
+Finally the radius of curvature and distance from center of the lane were displayed acrossed the top of the image using the 'cv2.putText()' function to apply an opaque mask to the image. To ensure the quality and repeatability of the lane detection process, all the images from the test_images folder were tested before moving onto creating a video.
 
 <p align="center">
  <img src="./images/output_000.jpg" width=250>
@@ -128,7 +128,7 @@ The lane lines are calculated in the pixel space but we need to convert the dime
 </p>
 
 ## 3. Pipeline (Video)
-...
+Now that the lanes can be detected consistently from individual images we can now apply it to a video. Here a weighted average is applied to the polynomial coefficients and lane line centers to effectively smooth the lane detection between frames and account for random noise in measurements. The final result is rather smooth and I am quite proud of how well this works. View the final video submission [HERE](./videos/submission.mp4).
 
 <p align="center">
  <img src="./videos/p4_smooth.gif" width=600>
