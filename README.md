@@ -82,7 +82,7 @@ To further isolate the lane lines in the image from the background noise the new
 </p>
 
 ### 2.2 Detect Lane Lines
-...
+With the lane lines highlighed from the original image we now need to calculate the characteristics of each line such as slope and position. Before we can get any relevant data from the lines, we must first apply a perspective transform to the image to warped it to as if we were looking at the lane from the top down. For this step a four sided polygon was manually drawn on the original image (left) to define the lane (middle) so that a perspective transform could be applied to warp the image (right).
 
 <p align="center">
  <img src="./images/straight_lines1.jpg" width=250>
@@ -90,9 +90,13 @@ To further isolate the lane lines in the image from the background noise the new
  <img src="./images/warped_color.png" width=250>
 </p>
 
+With the binary of the warped image, we can now plot the image as a histogram with respect to the concentration of points along the x-axis. Here two spikes can be seen that indicate the position of the left and right lane lines. The histogram is split into left and right sections from which the x position of the max value becomes the lane line center for computing the polynomial of the line. 
+
 <p align="center">
  <img src="./images/histogram.png" width=350>
 </p>
+
+With the ...
 
 <p align="center">
  <img src="./images/sliding_window.png" width=350>
