@@ -90,21 +90,20 @@ With the lane lines highlighed from the original image we now need to calculate 
  <img src="./images/warped_color.png" width=250>
 </p>
 
-With the binary of the warped image, we can now plot the image as a histogram with respect to the concentration of points along the x-axis. Here two spikes can be seen that indicate the position of the left and right lane lines. The histogram is split into left and right sections from which the x position of the max value becomes the lane line center for computing the polynomial of the line. 
+We can now plot the image as a histogram with respect to the concentration of points along the x-axis. Here two spikes can be seen that indicate the position of the left and right lane lines. The histogram is split into left and right sections from which the x position of the max value becomes the lane line center for computing the polynomial of the line. 
 
 <p align="center">
  <img src="./images/histogram.png" width=350>
 </p>
 
-With the ...
+Now that we know the rough position of the lines in the image we begin classifying all the points that are most likely associated with the lane lines and not the surrounding environment. Using the sliding window method we can divide the image into horizontal slices and essentially trace the lane line vertically using a margin to search for points left and right of the center of the line previously detected. All the points detected were then used to calculate a polynomial fit for both lines and then the coefficients were added to the existing fit using a weighted average to smooth the detection method between frames.
 
 <p align="center">
  <img src="./images/sliding_window.png" width=350>
 </p>
 
 ### 2.3 Determine Lane Curvature
-...
-
+The lane lines are calculated in the pixel space but we need to convert the dimensions to real space to have any significant value. Lanes are approximately 3.7 meters wide and 30.0 meters long on a straight section of road, so applying this scale to the image we can set the approximate conversion to be roughly 24 pixels/meter in the vertical and 346 pixels/meter in the horizontal. With this conversion we can convert the radius of curvature from pixel space to real space
 
 ### 2.4 Unwarp Image & Overlay Lane
 ...
