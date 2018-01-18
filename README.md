@@ -136,6 +136,11 @@ Now that the lanes can be detected consistently from individual images we can no
 
 ## 4. Discussion
 
-### 4.1 Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+### 4.1 Problems with the implementation?
+Current limitations with the implementation of this lane detection program are the hard coded values in the perspective transformation defining the lane region and the threshold values for the color and gradient thresholds when isolating the lane lines. Since these are not dynamic, the algorithm does not handle shadows or changing conditions very well. 
 
+### 4.2 Where will your pipeline likely fail?
+The algorithm uses a trailing filter of ten frames for calculating the lane line centers and polynomial coefficients, so if a section of failed read attempts are measured then the lanes will drift from their true position resulting in false detection of the lanes.
 
+### 4.3 What could you do to make it more robust?
+This program could be made to be most robust by adding dynamically adjusting threshold values given the number of pixels detected on each consecutive frame to ensure that undesired environmental noise is not influencing the lane detection accuracy.
