@@ -16,9 +16,9 @@ class Lane():
         self.line_right = Line()
         
         # Conversions from pixel to real space.
-        self.ym_per_pix = 30/720
-        self.xm_per_pix = 3.7/1280
-        
+        self.ym_per_pix = 20/350
+        self.xm_per_pix = 3.7/1000
+
         # Line centroid parameters.
         self.window_width = width
         self.window_height = height
@@ -102,13 +102,16 @@ class Lane():
         label_radius = "Radius of Curvature ="
         label_value = "%8.1fm" % (radius)
         
-        pos_left = self.line_left.line_base_pos
-        pos_right = self.line_right.line_base_pos        
-        pos_center = np.absolute(pos_left - pos_right)
-        
-        if pos_left < pos_right:
+        pos_left = self.line_left.current_fit[-1]
+        pos_right = self.line_right.current_fit[-1]
+
+        lane_center = (pos_left + pos_right) / 2.0
+        image_center = image.shape[1]/2
+        pos_center = np.absolute(lane_center - image_center) * self.xm_per_pix
+
+        if lane_center > image_center:
             label_center = "Vehicle is {0:.2f}m left of center.".format(pos_center)
-        elif pos_right < pos_left:
+        elif lane_center < image_center:
             label_center = "Vehicle is {0:.2f}m right of center.".format(pos_center)
         else:
             label_center = "Vehicle is centered."

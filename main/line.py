@@ -32,7 +32,7 @@ class Line():
         if self.best_base is None:
             self.base.append(base)
             self.best_base = base            
-        elif abs(self.base - base) > 30:
+        elif abs(self.best_base - base) > 50:
             self.detected = False
         else:
             self.base.append(base)
@@ -58,13 +58,13 @@ class Line():
                 diff = self.current_fit/fit
                 
                 for i, coeff in enumerate(fit):
-                    if (diff[i] < 0.33) | (diff[i] > 2.0):
+                    if (diff[i] < 0.20) | (diff[i] > 2.5):
                         threshold = False
                         
                 if threshold:
                     self.allx = allx
                     self.ally = ally
-                self.current_fit = self.current_fit*0.70 + fit*0.30    
+                self.current_fit = self.current_fit*0.60 + fit*0.40    
         else:
             self.detected = False        
                 
@@ -73,7 +73,7 @@ class Line():
         if self.line_base_pos is None:
             self.line_base_pos = pos
         else:
-            self.line_base_pos = self.line_base_pos*0.9 + pos*0.1
+            self.line_base_pos = self.line_base_pos*0.70 + pos*0.30
         
     def update_radius(self, radius):
         """Updates Lane Curvature"""

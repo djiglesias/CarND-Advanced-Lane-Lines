@@ -52,7 +52,7 @@ def mag_thresh(image, sobel_kernel=9, mag_thresh=(80, 180)):
     # Return the binary image
     return mag_binary
 
-def dir_thresh(image, sobel_kernel=9, thresh=(0.7, 1.3)):
+def dir_thresh(image, sobel_kernel=9, thresh=(0.9, 1.3)):
     """ Compute the Directional Threshold
     
     Returns:
