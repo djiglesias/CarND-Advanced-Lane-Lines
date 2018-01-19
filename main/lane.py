@@ -16,8 +16,8 @@ class Lane():
         self.line_right = Line()
         
         # Conversions from pixel to real space.
-        self.ym_per_pix = 20/350
-        self.xm_per_pix = 3.7/1000
+        self.ym_per_pix = 30/720
+        self.xm_per_pix = 3.7/900
 
         # Line centroid parameters.
         self.window_width = width
@@ -101,9 +101,10 @@ class Lane():
         radius = np.average((self.line_left.radius_of_curvature, self.line_right.radius_of_curvature))
         label_radius = "Radius of Curvature ="
         label_value = "%8.1fm" % (radius)
-        
-        pos_left = self.line_left.current_fit[-1]
-        pos_right = self.line_right.current_fit[-1]
+      
+        y = 720
+        pos_left = self.line_left.current_fit[0]*y**2 + self.line_left.current_fit[1]*y + self.line_left.current_fit[2]
+        pos_right = self.line_right.current_fit[0]*y**2 + self.line_right.current_fit[1]*y + self.line_right.current_fit[2]
 
         lane_center = (pos_left + pos_right) / 2.0
         image_center = image.shape[1]/2
@@ -126,7 +127,7 @@ class Lane():
         """ Detect Radius of Lane Lines
         """       
         # Generate real space curvature.
-        y_eval = 720
+        y_eval = 719
         
         # Left line.       
         left_fit_cr = np.polyfit(self.line_left.ally*self.ym_per_pix, self.line_left.allx*self.xm_per_pix, 2)
